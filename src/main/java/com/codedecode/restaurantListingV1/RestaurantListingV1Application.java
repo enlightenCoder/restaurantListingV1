@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class RestaurantListingV1Application {
 
 	public static void main(String[] args) {
+		System.out.println("Hello");
 		SpringApplication.run(RestaurantListingV1Application.class, args);
 	}
 
