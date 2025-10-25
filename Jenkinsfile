@@ -12,26 +12,26 @@ pipeline {
 
   stages {  // Begin pipeline stages
 
-    stage('Maven Build'){  // Stage to build the Java project
+    stage('🧱 Maven Build'){  // Stage to build the Java project
         steps{
             sh 'mvn clean package  -DskipTests'  // Run Maven: clean previous build, package the project, skip tests for speed
         }
     }
 
-    stage('Run Tests') {  // Stage to execute unit/integration tests
+    stage('🧪 Run Tests') {  // Stage to execute unit/integration tests
         steps {
             sh 'mvn test'  // Run Maven test goal
         }
     }
 
-    stage('SonarQube Analysis') {  // Stage to perform static code analysis with SonarQube
+    stage('🔍 SonarQube Analysis') {  // Stage to perform static code analysis with SonarQube
         steps {
             sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://52.66.229.47:9000 -Dsonar.login=squ_ff4b11e2c7c018dec3167c679db4400c836e6173'
             // Maven command to run SonarQube analysis and generate code coverage report using JaCoCo
         }
     }
 
-    stage('Check code coverage') {  // Stage to enforce minimum code coverage threshold
+    stage('📊 Check code coverage') {  // Stage to enforce minimum code coverage threshold
         steps {
             script {  // Use Groovy script block because we need variables, API calls, and conditionals
                 def token = "squ_ff4b11e2c7c018dec3167c679db4400c836e6173" // SonarQube API token
@@ -61,7 +61,7 @@ pipeline {
         }
     }
 
-    stage('Docker Build and Push') {  // Stage to build and push Docker image
+    stage('🐳 Docker Build and Push') {  // Stage to build and push Docker image
         steps {
             // Log in to Docker Hub using credentials from Jenkins
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -70,7 +70,7 @@ pipeline {
         }
     }
 
-    stage('Cleanup Workspace') {  // Stage to clean the Jenkins workspace
+    stage('🧹 Cleanup Workspace') {  // Stage to clean the Jenkins workspace
         steps {
             deleteDir()  // Delete all files in the workspace to free up space and avoid conflicts
         }
