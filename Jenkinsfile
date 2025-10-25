@@ -26,7 +26,7 @@ pipeline {
 
     stage('SonarQube Analysis') {  // Stage to perform static code analysis with SonarQube
         steps {
-            sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://52.66.229.47:9000/ -Dsonar.token=squ_cefd7bb07d2407d6865a31ea92c78d92e0e80c47'
+            sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://52.66.229.47:9000 -Dsonar.login=squ_ff4b11e2c7c018dec3167c679db4400c836e6173'
             // Maven command to run SonarQube analysis and generate code coverage report using JaCoCo
         }
     }
@@ -34,7 +34,7 @@ pipeline {
     stage('Check code coverage') {  // Stage to enforce minimum code coverage threshold
         steps {
             script {  // Use Groovy script block because we need variables, API calls, and conditionals
-                def token = "squ_cefd7bb07d2407d6865a31ea92c78d92e0e80c47" // SonarQube API token
+                def token = "squ_ff4b11e2c7c018dec3167c679db4400c836e6173" // SonarQube API token
                 def sonarQubeUrl = "http://52.66.229.47:9000/api"  // SonarQube API base URL
                 def componentKey = "com.codedecode:restaurantListingV1"  // SonarQube project/component key, check in your project pom.xml groupid and Artifactid
                 def coverageThreshold = 80.0  // Minimum required code coverage percentage
